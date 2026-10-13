@@ -1,0 +1,18 @@
+{
+    "formatVersion": 1,
+    "id": "k40_grbl",
+    "name": "K40 mit GRBL-Board (CO₂)",
+    "driver": "grbl",
+    "baudRate": 115200,
+    "workAreaX": 300,
+    "workAreaY": 200,
+    "origin": "bottomLeft",
+    "laserType": "co2",
+    "laserMode": "M4",
+    "maxS": 1000,
+    "homing": false,
+    "airAssist": false,
+    "focusPower": 1.0,
+    "maxSpeed": 100,
+    "jogSpeed": 50
+}

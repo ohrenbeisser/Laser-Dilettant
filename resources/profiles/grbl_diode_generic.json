@@ -1,0 +1,18 @@
+{
+    "formatVersion": 1,
+    "id": "grbl_diode_generic",
+    "name": "GRBL-Diodenlaser (allgemein)",
+    "driver": "grbl",
+    "baudRate": 115200,
+    "workAreaX": 300,
+    "workAreaY": 300,
+    "origin": "bottomLeft",
+    "laserType": "diode",
+    "laserMode": "M4",
+    "maxS": 1000,
+    "homing": false,
+    "airAssist": false,
+    "focusPower": 1.0,
+    "maxSpeed": 100,
+    "jogSpeed": 50
+}

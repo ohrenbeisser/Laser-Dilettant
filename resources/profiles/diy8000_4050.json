@@ -1,0 +1,18 @@
+{
+    "formatVersion": 1,
+    "id": "diy8000_4050",
+    "name": "DIY8000 4050 (Diode)",
+    "driver": "grbl",
+    "baudRate": 9600,
+    "workAreaX": 400,
+    "workAreaY": 500,
+    "origin": "bottomLeft",
+    "laserType": "diode",
+    "laserMode": "M4",
+    "maxS": 1000,
+    "homing": false,
+    "airAssist": false,
+    "focusPower": 1.0,
+    "maxSpeed": 100,
+    "jogSpeed": 50
+}

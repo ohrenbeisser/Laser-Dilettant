@@ -1,0 +1,8 @@
+/build*/
+/out/
+CMakeLists.txt.user*
+CMakeUserPresets.json
+.vscode/
+.idea/
+*.qm
+compile_commands.json

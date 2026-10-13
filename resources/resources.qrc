@@ -1,0 +1,17 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>profiles/diy8000_4050.json</file>
+        <file>profiles/diy8000_1720.json</file>
+        <file>profiles/grbl_diode_generic.json</file>
+        <file>profiles/k40_grbl.json</file>
+        <file>grbl/error_codes_en_US.csv</file>
+        <file>grbl/error_codes_de_DE.csv</file>
+        <file>grbl/alarm_codes_en_US.csv</file>
+        <file>grbl/alarm_codes_de_DE.csv</file>
+        <file>grbl/setting_codes_en_US.csv</file>
+        <file>grbl/setting_codes_de_DE.csv</file>
+        <file>firmware/grbl_v1.1h.hex</file>
+        <file>icons/laser-dilettant.svg</file>
+    </qresource>
+</RCC>
