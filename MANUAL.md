@@ -1,6 +1,6 @@
 # Laser-Dilettant – Handbuch
 
-Dieses Handbuch gilt für Version 0.1.0 (Beta). Es führt dich vom Anschließen des Lasers über die Vorbereitung eines Bildes bis zum fertigen Brand und erklärt alle Hilfsmittel: Materialtest, Kalibrierung, Meldungen aufs Handy, die Fernansicht und die Firmware. Du findest es auch im Programm: Menü **Hilfe → Handbuch** oder die Taste **F1**. In den Dialogen öffnet F1 (oder der Knopf **Hilfe**) das passende Kapitel. Wie du das Programm baust, steht in der README.md.
+Dieses Handbuch gilt für Version 0.1.1 (Beta). Es führt dich vom Anschließen des Lasers über die Vorbereitung eines Bildes bis zum fertigen Brand und erklärt alle Hilfsmittel: Materialtest, Kalibrierung, Meldungen aufs Handy, die Fernansicht und die Firmware. Du findest es auch im Programm: Menü **Hilfe → Handbuch** oder die Taste **F1**. In den Dialogen öffnet F1 (oder der Knopf **Hilfe**) das passende Kapitel. Wie du das Programm baust, steht in der README.md.
 
 Wer ganz neu ist, liest Kapitel 1 (Sicherheit) und Kapitel 2 (Schnellstart). Danach schlägst du nach, was du brauchst. Die Bilder zeigen die Oberfläche im hellen Design; im dunklen Design sieht alles gleich aufgebaut aus.
 

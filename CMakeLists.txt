@@ -2,7 +2,7 @@
 # Sie legt nur die gemeinsamen Einstellungen fest und bindet die Unterordner ein.
 cmake_minimum_required(VERSION 3.21)
 
-project(LaserDilettant VERSION 0.1.0 LANGUAGES C CXX)
+project(LaserDilettant VERSION 0.1.1 LANGUAGES C CXX)
 
 # --- Sprache: C++20 (so entschieden), ohne Compiler-Sondererweiterungen ---
 set(CMAKE_CXX_STANDARD 20)

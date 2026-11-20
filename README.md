@@ -2,7 +2,7 @@
 
 Ein Programm für den DIY-Diodenlaser: Bild laden, aufbereiten, als G-Code erzeugen und über USB an einen Laser mit GRBL schicken. Es läuft unter Linux (Windows ist vorgesehen, siehe unten) und ist zugleich ein Lernprojekt für C++ mit Qt.
 
-> **Stand: Beta 0.1.0.** Das Programm ist am echten Laser getestet, kann aber Fehler enthalten. Neue Einstellungen zuerst mit niedriger Leistung an Probematerial prüfen.
+> **Stand: Beta 0.1.1.** Das Programm ist am echten Laser getestet, kann aber Fehler enthalten. Neue Einstellungen zuerst mit niedriger Leistung an Probematerial prüfen.
 
 > **Sicherheit.** Ein Laser kann Augen schädigen und Feuer auslösen. Schutzbrille für die Wellenlänge des Lasers tragen, nichts Brennbares im Arbeitsbereich lassen, für Abluft sorgen, den Laser nie unbeaufsichtigt laufen lassen. Der Not-Aus dieser Software ist **kein** Hardware-Not-Aus: Bei einem Abbruch der USB-Verbindung, einem Rechnerabsturz oder einem Programmfehler kann er ausfallen. Die Stromversorgung des Lasers muss jederzeit erreichbar sein. Die Nutzung geschieht auf eigene Gefahr, es gibt keine Gewährleistung (siehe Lizenz).
 
@@ -70,14 +70,14 @@ Das Paket bringt Qt 6.8 selbst mit und läuft ab **Ubuntu 24.04 / Linux Mint 22*
 cmake --preset linux-release -DLD_BUILD_TESTS=OFF
 cmake --build --preset linux-release
 cd build/linux-release && cpack -G DEB
-sudo apt install ./laser-dilettant_0.1.0_amd64.deb
+sudo apt install ./laser-dilettant_0.1.1_amd64.deb
 ```
 
 Danach startet das Programm mit `laser-dilettant` oder aus dem Anwendungsmenü.
 
 ### AppImage
 
-`packaging/linux/make-appimage.sh` baut einen Ordner, der ohne Installation läuft (`AppRun`), und packt ihn mit `appimagetool` (muss im Pfad liegen oder mit `APPIMAGETOOL=/Pfad/appimagetool` angegeben werden) zu einer einzelnen Datei. Es gilt dasselbe Mindestsystem wie beim deb-Paket. Zum Starten braucht der Rechner FUSE (`fusermount`, unter Ubuntu meist schon da); ohne FUSE geht `./Laser-Dilettant-0.1.0-x86_64.AppImage --appimage-extract-and-run`.
+`packaging/linux/make-appimage.sh` baut einen Ordner, der ohne Installation läuft (`AppRun`), und packt ihn mit `appimagetool` (muss im Pfad liegen oder mit `APPIMAGETOOL=/Pfad/appimagetool` angegeben werden) zu einer einzelnen Datei. Es gilt dasselbe Mindestsystem wie beim deb-Paket. Zum Starten braucht der Rechner FUSE (`fusermount`, unter Ubuntu meist schon da); ohne FUSE geht `./Laser-Dilettant-0.1.1-x86_64.AppImage --appimage-extract-and-run`.
 
 ### Windows
 
@@ -125,7 +125,7 @@ Das Aufspielen einer neuen Firmware kann den Laser unbenutzbar machen und ist oh
 
 ## Stand und Ausblick
 
-Version 0.1.0 (Beta). Das Programm ist am echten Laser getestet. Dazu gehören Firmware-Dialog, ntfy, Fernansicht, Hilfe im Programm und ein ausführliches Handbuch (`MANUAL.md`, mit Bildern). Pakete für Linux (deb, AppImage) lassen sich bauen; Flatpak und ein Windows-Installer fehlen noch. Auch die Ebenen (mehrere Arbeitsschritte in einem Auftrag) gibt es noch nicht. Die Oberfläche gibt es auf Deutsch und Englisch (Einstellungen → Sprache); Handbuch und README sind nur Deutsch.
+Version 0.1.1 (Beta). Das Programm ist am echten Laser getestet. Dazu gehören Firmware-Dialog, ntfy, Fernansicht, Hilfe im Programm und ein ausführliches Handbuch (`MANUAL.md`, mit Bildern). Pakete für Linux (deb, AppImage) lassen sich bauen; Flatpak und ein Windows-Installer fehlen noch. Auch die Ebenen (mehrere Arbeitsschritte in einem Auftrag) gibt es noch nicht. Die Oberfläche gibt es auf Deutsch und Englisch (Einstellungen → Sprache); Handbuch und README sind nur Deutsch.
 
 ## Lizenz
 

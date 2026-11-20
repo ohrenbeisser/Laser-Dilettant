@@ -1,3 +1,10 @@
+laser-dilettant (0.1.1) unstable; urgency=low
+
+  * Pakete über GitHub Actions: deb, AppImage, Windows-Installer und
+    Flatpak. Sonst keine Änderung am Programm.
+
+ -- Ohrenbeisser <ohrenbeisser@users.noreply.github.com>  Fri, 20 Nov 2026 14:00:00 +0000
+
 laser-dilettant (0.1.0) unstable; urgency=low
 
   * Erste Beta-Version: Bilder aufbereiten, G-Code erzeugen und an einen
