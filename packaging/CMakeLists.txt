@@ -1,4 +1,4 @@
-# Installieren und Pakete bauen (CPack). Bisher nur Linux (deb); Windows und AppImage kommen später.
+# Installieren und Pakete bauen (CPack): Linux (deb, AppImage, Flatpak über denselben Installationsschritt) und Windows (NSIS).
 #
 # Aufbau des deb-Pakets (Qt 6.8 kommt mit, weil die Systemversionen älter sind):
 #   /usr/bin/laser-dilettant                          Verweis auf das Programm
@@ -13,13 +13,24 @@ include(GNUInstallDirs)
 # Rechte wie bei Debian-Paketen: Ordner 755, Dateien 644 (Programme 755)
 set(CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
+if(WIN32)
+    include("${CMAKE_CURRENT_SOURCE_DIR}/windows/windows.cmake")
+    return()
+endif()
 if(NOT UNIX OR APPLE)
     return()
 endif()
 
+# Qt mitliefern (deb, AppImage) oder nicht (Flatpak: Qt kommt dort aus der KDE-Laufzeit, das Programm liegt in /app/bin).
+option(LD_BUNDLE_QT "Qt-Bibliotheken ins Paket legen (AUS für Flatpak)" ON)
+
 set(LD_APP_DIR "${CMAKE_INSTALL_LIBDIR}/laser-dilettant")
 
 # --- Programm und Qt ---
+if(NOT LD_BUNDLE_QT)
+    install(TARGETS laser-dilettant RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+endif()
+if(LD_BUNDLE_QT)
 install(TARGETS laser-dilettant RUNTIME DESTINATION "${LD_APP_DIR}/bin")
 set_target_properties(laser-dilettant PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
 
@@ -85,6 +96,8 @@ install(CODE "
     file(CHMOD \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}\" DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
     file(CREATE_LINK \"../${LD_APP_DIR}/bin/laser-dilettant\" \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/laser-dilettant\" SYMBOLIC)
 ")
+
+endif()   # LD_BUNDLE_QT
 
 # --- Starter, Symbole, Beschreibung, Dokumentation ---
 install(FILES linux/laser-dilettant.desktop DESTINATION "${CMAKE_INSTALL_DATADIR}/applications")

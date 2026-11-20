@@ -35,7 +35,7 @@ Entwickelt und getestet mit einem DIY8000-Desktop-Laser (Diode, GRBL 1.1z, USB-C
 
 ## Installation
 
-Fertige Pakete gibt es noch nicht. Geplant sind Windows-Installer, deb, AppImage und Flatpak. Bis dahin: aus dem Quellcode bauen.
+Fertige Pakete (deb, AppImage, Windows-Installer, Flatpak) baut GitHub Actions bei jeder Version und hängt sie an das [Release](https://github.com/ohrenbeisser/Laser-Dilettant/releases). Windows-Installer und Flatpak sind noch neu und nicht auf einem echten Rechner erprobt. Alternativ: aus dem Quellcode bauen.
 
 ### Bauen unter Linux
 
@@ -81,7 +81,7 @@ Danach startet das Programm mit `laser-dilettant` oder aus dem Anwendungsmenü.
 
 ### Windows
 
-Der Code ist plattformunabhängig und soll unter Windows laufen, ist dort aber noch nicht gebaut oder getestet. Der Windows-Installer folgt.
+Der Code ist plattformunabhängig. Der Windows-Installer (`Laser-Dilettant-<Version>-Setup.exe`) wird von GitHub Actions gebaut (MSVC 2022, Qt 6.8.3, NSIS); er ist noch nicht auf einem echten Windows-Rechner erprobt. Selbst bauen: `packaging/windows/windows.cmake` beschreibt die Schritte.
 
 ## Den Laser verbinden
 

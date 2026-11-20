@@ -1,0 +1,180 @@
+# Baut die Pakete (deb, AppImage, Windows-Installer, Flatpak).
+# - Bei jedem Push auf release und bei Pull Requests: Probebau, die Pakete hängen als Artefakte am Lauf.
+# - Bei einem Tag v*  (zum Beispiel v0.1.0): zusätzlich ein GitHub-Release mit allen Paketen und SHA256SUMS.txt.
+# Qt kommt mit aqtinstall (ohne Qt-Konto). Die Tests laufen hier nicht (der Ordner tests/ ist nicht im Repository).
+name: Pakete
+
+on:
+  push:
+    branches: [release]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  QT_VERSION: '6.8.3'
+  APPIMAGETOOL_URL: https://github.com/AppImage/appimagetool/releases/download/1.9.1/appimagetool-x86_64.AppImage
+  APPIMAGETOOL_SHA256: ed4ce84f0d9caff66f50bcca6ff6f35aae54ce8135408b3fa33abfc3cb384eb0
+
+jobs:
+  linux:
+    name: deb und AppImage
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bibliotheken für Qt und Bau
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev libxkbcommon-x11-0 libfontconfig1-dev \
+            libdbus-1-dev libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-shape0 \
+            libxcb-xkb1 libxcb-xinerama0 libxcb-randr0 libxcb-glx0 libxcb-shm0 libxcb-sync1 libxcb-xfixes0 libxcb-util1 \
+            desktop-file-utils fuse3
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Qt installieren (aqtinstall)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: desktop
+          arch: linux_gcc_64
+          modules: qtserialport qtimageformats
+          cache: true
+
+      - name: Bauen
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DLD_BUILD_TESTS=OFF \
+            -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR"
+          cmake --build build
+
+      - name: deb-Paket
+        run: cd build && cpack -G DEB
+
+      - name: appimagetool laden und prüfen
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/appimagetool" "$APPIMAGETOOL_URL"
+          echo "$APPIMAGETOOL_SHA256  $RUNNER_TEMP/appimagetool" | sha256sum -c -
+          chmod +x "$RUNNER_TEMP/appimagetool"
+
+      - name: AppImage
+        env:
+          BUILD: build
+          APPIMAGETOOL: ${{ runner.temp }}/appimagetool
+          APPIMAGE_EXTRACT_AND_RUN: '1'
+          ARCH: x86_64
+        run: packaging/linux/make-appimage.sh
+
+      - name: Pakete einsammeln
+        run: |
+          mkdir out
+          cp build/*.deb out/
+          cp build/appimage/*.AppImage out/
+          ls -l out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: out/*
+          if-no-files-found: error
+
+  windows:
+    name: Windows-Installer
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Qt installieren (aqtinstall)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          modules: qtserialport qtimageformats
+          cache: true
+
+      - name: MSVC-Umgebung
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: NSIS bereitstellen
+        shell: pwsh
+        run: |
+          if (-not (Get-Command makensis -ErrorAction SilentlyContinue)) { choco install nsis -y --no-progress }
+          $nsis = "C:\Program Files (x86)\NSIS"
+          if (Test-Path $nsis) { echo $nsis | Out-File -Append -Encoding utf8 $env:GITHUB_PATH }
+
+      - name: Bauen
+        shell: pwsh
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DLD_BUILD_TESTS=OFF "-DCMAKE_PREFIX_PATH=$env:QT_ROOT_DIR"
+          cmake --build build
+
+      - name: Installer
+        shell: pwsh
+        run: |
+          cd build
+          cpack -G NSIS
+          Get-ChildItem *.exe
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: build/*-Setup.exe
+          if-no-files-found: error
+
+  flatpak:
+    name: Flatpak
+    runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.8
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: laser-dilettant.flatpak
+          manifest-path: packaging/flatpak/io.github.ohrenbeisser.LaserDilettant.yml
+          cache-key: flatpak-${{ github.sha }}
+
+  # Nur bei einem Tag v*: Release anlegen. Windows und Flatpak sind noch nicht erprobt; ihr Ausfall verhindert das Release nicht.
+  release:
+    name: GitHub-Release
+    if: ${{ always() && startsWith(github.ref, 'refs/tags/v') && needs.linux.result == 'success' }}
+    needs: [linux, windows, flatpak]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version von Tag und Projekt vergleichen
+        run: |
+          version=$(sed -n 's/^project(LaserDilettant VERSION \([0-9.]*\).*/\1/p' CMakeLists.txt)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME passt nicht zur Version $version in CMakeLists.txt" >&2
+            exit 1
+          fi
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: dl
+
+      - name: Prüfsummen
+        run: |
+          mkdir out
+          find dl -type f \( -name '*.deb' -o -name '*.AppImage' -o -name '*-Setup.exe' -o -name '*.flatpak' \) -exec cp {} out/ \;
+          cd out && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
+
+      - name: Release anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" out/* --title "Laser-Dilettant ${GITHUB_REF_NAME#v} (Beta)" \
+            --prerelease --notes "Beta-Version. Pakete: deb und AppImage (Linux), Windows-Installer, Flatpak. Prüfsummen in SHA256SUMS.txt. Hinweise im README."
