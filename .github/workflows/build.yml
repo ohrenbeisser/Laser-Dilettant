@@ -137,6 +137,7 @@ jobs:
       options: --privileged
     steps:
       - uses: actions/checkout@v4
+      # Ohne Zwischenspeicher (cache: false): Vermutung, dass ein wiederhergestellter Cache den Absturz von flatpak-builder (Exit-Code 139) auslöste.
       # Der Bau stürzt auf GitHub-Rechnern gelegentlich zufällig ab (xvfb-run, Exit-Code 139): ein zweiter Versuch fängt das auf.
       - name: Flatpak bauen (1. Versuch)
         id: versuch1
@@ -145,14 +146,14 @@ jobs:
         with:
           bundle: laser-dilettant.flatpak
           manifest-path: packaging/flatpak/io.github.ohrenbeisser.LaserDilettant.yml
-          cache-key: flatpak-${{ github.sha }}
+          cache: false
       - name: Flatpak bauen (2. Versuch)
         if: ${{ steps.versuch1.outcome == 'failure' }}
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: laser-dilettant.flatpak
           manifest-path: packaging/flatpak/io.github.ohrenbeisser.LaserDilettant.yml
-          cache-key: flatpak-${{ github.sha }}
+          cache: false
 
   # Nur bei einem Tag v*: Release anlegen. Windows und Flatpak sind noch nicht erprobt; ihr Ausfall verhindert das Release nicht.
   release:
