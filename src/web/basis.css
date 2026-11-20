@@ -1,0 +1,165 @@
+/* Horch-Basis: gemeinsames Material-3-Gerüst der Horch-Apps (FT8-Horch, SSTV-Horch).
+   Quelle: ~/dev/Apps/horch-basis, in die Projekte kopiert mit `node ../horch-basis/sync.mjs <Projekt>`.
+   Hier nichts projektspezifisches ändern, das gehört in theme.css des Projekts. Farbrollen stehen in farben.css. */
+@import url("farben.css");
+
+@font-face { font-family: Roboto; font-weight: 400; font-display: swap; src: url("fonts/roboto-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: Roboto; font-weight: 400; font-display: swap; src: url("fonts/roboto-latin-ext-400-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: Roboto; font-weight: 500; font-display: swap; src: url("fonts/roboto-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: Roboto; font-weight: 500; font-display: swap; src: url("fonts/roboto-latin-ext-500-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: Roboto; font-weight: 700; font-display: swap; src: url("fonts/roboto-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat Alt1"; font-weight: 500; font-display: swap; src: url("fonts/MontserratAlt1-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Roboto Mono"; font-weight: 400; font-display: swap; src: url("fonts/roboto-mono-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Roboto Mono"; font-weight: 500; font-display: swap; src: url("fonts/roboto-mono-latin-500-normal.woff2") format("woff2"); }
+
+:root {
+  color-scheme: light dark;
+  --font: Roboto, system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, monospace;
+  /* Formskala */
+  --shape-xs: 4px; --shape-sm: 8px; --shape-md: 12px; --shape-lg: 16px; --shape-xl: 28px; --shape-full: 999px;
+  /* Statusfarben außerhalb der M3-Rollen, immer mit Text beschriftet */
+  --ok: #1b7f3b; --warn: #8a5300; --warn-bg: #ffddb0;
+  --pegel-gut: #2e9e4f; --pegel-leise: #e3a800; --pegel-laut: #d32f2f;
+  --serie-1: #0072b2; --serie-2: #c2410c; --serie-3: #00785a; --serie-4: #7a5f00;
+  --dauer: 200ms;
+  --kopf-h: 56px;
+  --schublade-b: 288px;
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; --ok: #7bd88f; --pegel-gut: #66d17f; --pegel-leise: #ffd54f; --pegel-laut: #ff6b6b; --serie-1: #56b4e9; --serie-2: #e69f00; --serie-3: #4fd1a5; --serie-4: #f0e442; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ok: #7bd88f; --pegel-gut: #66d17f; --pegel-leise: #ffd54f; --pegel-laut: #ff6b6b; --serie-1: #56b4e9; --serie-2: #e69f00; --serie-3: #4fd1a5; --serie-4: #f0e442; } }
+@media (prefers-reduced-motion: reduce) { :root { --dauer: 0ms; } }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { font: 400 16px/24px var(--font); color: var(--md-on-surface); background: var(--md-surface); -webkit-tap-highlight-color: transparent; overflow: hidden; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--md-primary-text); outline-offset: 2px; }
+
+/* Typoskala */
+.title-lg { font: 400 22px/28px var(--font); }
+.title-md { font: 500 16px/24px var(--font); letter-spacing: .15px; }
+.label-lg { font: 500 14px/20px var(--font); letter-spacing: .1px; }
+.body-sm { font: 400 12px/16px var(--font); }
+.mono { font-family: var(--font-mono); }
+.icon { width: 24px; height: 24px; fill: currentColor; flex: none; }
+
+/* Gerüst: Kopfzeile, darunter der Inhalt über die ganze Breite; die Schublade (Navigation Drawer) liegt darüber */
+#app { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: var(--kopf-h) 1fr; height: 100%; }
+#kopf { display: flex; align-items: center; gap: 4px; padding: 0 12px 0 4px; background: var(--md-surface); }
+#kopf h1 { flex: 1; min-width: 0; margin: 0; padding-left: 4px; font-weight: 500; font-size: 18px; line-height: 24px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#kopfAktion { display: flex; align-items: center; gap: 4px; }
+main { overflow: auto; padding: 0 16px 16px; outline: none; }
+.icon-btn { width: 48px; height: 48px; border-radius: var(--shape-full); border: 0; background: none; color: var(--md-on-surface-variant); display: grid; place-items: center; cursor: pointer; flex: none; }
+
+/* Schublade: auf dem Handy über dem Inhalt, ab 1100 px dauerhaft links */
+#scrim { position: fixed; inset: 0; background: #0008; opacity: 0; pointer-events: none; transition: opacity var(--dauer); z-index: 20; }
+#scrim.offen { opacity: 1; pointer-events: auto; }
+#schublade { position: fixed; top: 0; bottom: 0; left: 0; width: min(var(--schublade-b), 86vw); background: var(--md-surface-container-low); border-radius: 0 var(--shape-xl) var(--shape-xl) 0; transform: translateX(-102%); transition: transform var(--dauer); z-index: 21; display: flex; flex-direction: column; padding: 12px 12px 16px; overflow-y: auto; visibility: hidden; }
+#schublade.offen { transform: none; visibility: visible; }
+.sch-kopf { display: flex; align-items: center; gap: 12px; padding: 8px 12px 16px; }
+.sch-kopf img { width: 40px; height: 40px; flex: none; }
+.sch-kopf .name { font-family: "Montserrat Alt1", var(--font); font-weight: 500; font-size: 17px; letter-spacing: .08em; text-transform: uppercase; }
+.sch-kopf .zusatz { color: var(--md-on-surface-variant); }
+.sch-eintrag { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 0 16px; border: 0; border-radius: var(--shape-full); background: none; color: var(--md-on-surface); font: 500 14px/20px var(--font); text-align: left; cursor: pointer; text-decoration: none; }
+.sch-eintrag[aria-current="page"] { background-color: var(--md-secondary-container); color: var(--md-on-secondary-container); font-weight: 700; }
+.sch-trenner { height: 1px; margin: 8px 16px; background: var(--md-outline-variant); flex: none; }
+.sch-trenner.unten { margin-top: auto; }
+@media (min-width: 1100px) {
+  #app { grid-template-columns: var(--schublade-b) minmax(0, 1fr); }
+  #btnMenue { display: none; }
+  #kopf { grid-column: 2; padding-left: 12px; }
+  main { grid-column: 2; }
+  #schublade { position: static; grid-row: 1 / 3; grid-column: 1; transform: none; visibility: visible; border-radius: 0; width: auto; z-index: auto; }
+  #scrim { display: none; }
+}
+
+/* Schaltflächen */
+.btn { font: 500 14px/20px var(--font); min-height: 48px; padding: 0 24px; border-radius: var(--shape-full); border: 1px solid var(--md-outline); background: none; color: var(--md-primary-text); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.btn.filled { background: var(--md-primary); color: var(--md-on-primary); border-color: transparent; }
+.btn.tonal { background: var(--md-secondary-container); color: var(--md-on-secondary-container); border-color: transparent; }
+.btn.text { border-color: transparent; padding: 0 12px; }
+.btn:disabled { opacity: .38; cursor: default; }
+.aktionen { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+
+/* Chip */
+.chip { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px; border-radius: var(--shape-sm); border: 1px solid var(--md-outline); background: none; color: var(--md-on-surface-variant); font: 500 14px/20px var(--font); cursor: pointer; }
+
+/* Karten, Felder, Segmente */
+.card { background: var(--md-surface-container-low); border-radius: var(--shape-md); padding: 20px 16px; margin-top: 16px; }
+.card h2 { margin: 0 0 12px; }
+.hint { color: var(--md-on-surface-variant); }
+.feld { display: block; position: relative; margin-top: 20px; }
+.feld > span { position: absolute; left: 12px; top: -8px; padding: 0 4px; background: var(--md-surface-container-low); font: 400 12px/16px var(--font); color: var(--md-on-surface-variant); z-index: 1; }
+dialog .feld > span { background: var(--md-surface-container-high); }
+.feld input, .feld select { width: 100%; min-height: 56px; padding: 0 16px; font: 400 16px/24px var(--font); color: var(--md-on-surface); background: none; border: 1px solid var(--md-outline); border-radius: var(--shape-xs); }
+.feld input:focus, .feld select:focus { outline: 2px solid var(--md-primary); border-color: var(--md-primary); }
+.feld select { background: var(--md-surface-container-low); }
+dialog .feld select { background: var(--md-surface-container-high); }
+.reihe { display: flex; gap: 12px; flex-wrap: wrap; }
+.reihe > * { flex: 1 1 120px; }
+
+/* Segmented Buttons */
+.segmente { display: flex; margin-top: 12px; }
+.segmente button { flex: 1; min-height: 48px; border: 1px solid var(--md-outline); background: none; color: var(--md-on-surface); font: 500 14px/20px var(--font); cursor: pointer; margin-left: -1px; }
+.segmente button:first-child { border-radius: var(--shape-full) 0 0 var(--shape-full); margin-left: 0; }
+.segmente button:last-child { border-radius: 0 var(--shape-full) var(--shape-full) 0; }
+.segmente button[aria-pressed="true"] { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+
+/* Dialog und Bottom Sheet */
+dialog { border: 0; padding: 0; color: var(--md-on-surface); background: var(--md-surface-container-high); border-radius: var(--shape-xl); max-width: min(560px, calc(100vw - 32px)); width: 100%; }
+dialog::backdrop { background: rgb(0 0 0 / .4); }
+dialog .inhalt { padding: 24px; }
+dialog .aktionen { display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px; }
+/* Schließen-Kreuz: eine Zeile ohne Höhe, die beim Scrollen oben stehen bleibt und über dem Inhalt liegt (siehe src/dialogkopf.js) */
+dialog .dlg-kopf { position: sticky; top: 0; z-index: 2; height: 0; display: flex; justify-content: flex-end; }
+dialog .dlg-x { margin: 4px 4px 0 0; font: 400 28px/1 var(--font); background-color: color-mix(in srgb, var(--md-surface-container-high) 85%, transparent); }
+dialog .inhalt > h2:first-child, dialog > h2:first-of-type { padding-right: 48px; }
+dialog.sheet { margin: auto auto 0; max-width: 640px; border-radius: var(--shape-xl) var(--shape-xl) 0 0; }
+
+/* Snackbar und Warnband */
+#snackbar { position: fixed; left: 16px; right: 16px; bottom: 24px; max-width: 560px; margin: 0 auto; padding: 14px 16px; border-radius: var(--shape-xs); background: var(--md-inverse-surface); color: var(--md-inverse-on-surface); font: 400 14px/20px var(--font); opacity: 0; pointer-events: none; transition: opacity var(--dauer); z-index: 10; }
+#snackbar.zeigen { opacity: 1; }
+.warnband { background: var(--warn-bg); color: var(--warn); border-radius: var(--shape-sm); padding: 8px 12px; margin-top: 8px; }
+.warnband:empty { display: none; }
+
+.installband { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px; margin-top: 8px; padding: 12px 16px; border-radius: var(--shape-md); background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+.installband[hidden] { display: none; }
+.installband .aktionen { margin: 0; }
+.installband .btn.tonal { background: var(--md-primary); color: var(--md-on-primary); }
+.installband .btn.text { color: var(--md-on-secondary-container); }
+
+/* Hilfe und Über */
+.md { max-width: 62ch; }
+.md h1, .md h2, .md h3 { font-family: var(--font); scroll-margin-top: 8px; }
+.md h1 { font: 400 28px/36px var(--font); margin: 16px 0 8px; }
+.md h2 { font: 400 22px/28px var(--font); margin: 24px 0 8px; }
+.md h3 { font: 500 16px/24px var(--font); margin: 16px 0 4px; }
+.md p, .md li { margin: 8px 0; }
+.md code { font-family: var(--font-mono); font-size: 13px; background: var(--md-surface-container-high); padding: 1px 4px; border-radius: var(--shape-xs); }
+.md pre { background: var(--md-surface-container-high); padding: 12px; border-radius: var(--shape-sm); overflow: auto; }
+.md pre code { background: none; padding: 0; }
+.md blockquote { margin: 8px 0; padding: 0 16px; border-left: 4px solid var(--md-outline-variant); color: var(--md-on-surface-variant); }
+.md table { border-collapse: collapse; margin: 8px 0; display: block; overflow-x: auto; }
+.md th, .md td { border-bottom: 1px solid var(--md-outline-variant); padding: 6px 10px; text-align: left; }
+.md a, dialog a { color: var(--md-primary-text); }
+.md hr { border: 0; border-top: 1px solid var(--md-outline-variant); margin: 16px 0; }
+.md figure { margin: 16px 0; }
+.md img { display: block; max-width: 100%; height: auto; border-radius: var(--shape-md); border: 1px solid var(--md-outline-variant); }
+.md figcaption { margin-top: 6px; color: var(--md-on-surface-variant); font: 400 13px/18px var(--font); }
+.ueber-logo { display: flex; justify-content: center; margin: 4px 0 12px; }
+.ueber-logo img { width: 96px; height: 96px; border-radius: 22px; }
+dialog .inhalt.scroll { max-height: 80vh; overflow: auto; }
+dialog h3.abschn { margin: 20px 0 4px; }
+
+/* Zustandsschicht (M3): Überlagerung in der Textfarbe, Hover 22 %, Fokus 26 %, Druck 32 %, bei Knöpfen dazu Schatten und Rahmen in der Textfarbe. Nur mit Maus als Hover. */
+.btn, .icon-btn, .chip, .segmente button, .sch-eintrag { --zs: 0%; background-image: linear-gradient(color-mix(in srgb, currentColor var(--zs), transparent), color-mix(in srgb, currentColor var(--zs), transparent)); }
+.btn:focus-visible, .icon-btn:focus-visible, .chip:focus-visible, .segmente button:focus-visible, .sch-eintrag:focus-visible { --zs: 26%; }
+.btn:active:not(:disabled), .icon-btn:active, .chip:active, .segmente button:active, .sch-eintrag:active { --zs: 32%; }
+@media (hover: hover) {
+  .btn:hover:not(:disabled), .icon-btn:hover, .chip:hover, .segmente button:hover, .sch-eintrag:hover { --zs: 22%; }
+  .btn:hover:not(:disabled) { box-shadow: 0 2px 6px rgb(0 0 0 / .35); }
+  .btn:not(.filled):not(.tonal):hover:not(:disabled) { border-color: currentColor; }
+  .btn.filled:hover:not(:disabled), .btn.tonal:hover:not(:disabled) { box-shadow: 0 2px 6px rgb(0 0 0 / .35), inset 0 0 0 1px color-mix(in srgb, currentColor 60%, transparent); }
+}

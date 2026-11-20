@@ -1,0 +1,8 @@
+laser-dilettant (0.1.0) unstable; urgency=low
+
+  * Erste Beta-Version: Bilder aufbereiten, G-Code erzeugen und an einen
+    GRBL-Diodenlaser senden; Vorschau und Simulation; Materialtest und
+    Kalibrierung; Meldungen aufs Handy (ntfy); Fernansicht im Heimnetz;
+    Firmware-Dialog; Handbuch im Programm (F1).
+
+ -- Ohrenbeisser <ohrenbeisser@users.noreply.github.com>  Fri, 20 Nov 2026 12:00:00 +0000

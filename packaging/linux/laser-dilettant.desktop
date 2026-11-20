@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Laser-Dilettant
+GenericName=Laser-Steuerung
+Comment=Bilder für einen GRBL-Diodenlaser aufbereiten und brennen
+Exec=laser-dilettant
+Icon=laser-dilettant
+Terminal=false
+Categories=Graphics;Engineering;
+Keywords=Laser;GRBL;Gravur;G-Code;Gravieren;
+StartupWMClass=laser-dilettant

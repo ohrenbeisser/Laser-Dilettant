@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.ohrenbeisser.LaserDilettant</id>
+  <name>Laser-Dilettant</name>
+  <summary>Bilder für einen GRBL-Diodenlaser aufbereiten, als G-Code erzeugen und brennen</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  <description>
+    <p>
+      Laser-Dilettant lädt Bilder, bereitet sie auf (Schwellenwert, Dithering, Graustufen), erzeugt daraus G-Code
+      (Full, Cutting, Linie) und schickt ihn über USB an einen Diodenlaser mit GRBL. Dazu gibt es Vorschau und Simulation,
+      Materialtest, Kalibrierung, Meldungen aufs Handy und eine Fernansicht im Heimnetz.
+    </p>
+    <p>
+      Achtung: Ein Laser kann Augen schädigen und Brände auslösen. Der Not-Aus der Software ersetzt keinen Hardware-Not-Aus.
+    </p>
+  </description>
+  <launchable type="desktop-id">laser-dilettant.desktop</launchable>
+  <url type="homepage">https://github.com/ohrenbeisser/Laser-Dilettant</url>
+  <provides>
+    <binary>laser-dilettant</binary>
+  </provides>
+  <releases>
+    <release version="0.1.0" date="2026-11-20"/>
+  </releases>
+  <content_rating type="oars-1.1"/>
+</component>

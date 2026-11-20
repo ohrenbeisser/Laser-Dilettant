@@ -1,0 +1,47 @@
+/* Laser-Dilettant Fernansicht (die Seite, die das Programm ausliefert): Anpassungen auf der gemeinsamen Basis (basis.css, Quelle ~/dev/Apps/horch-basis).
+   Farbrollen stehen in farben.css. Hier nur, was nur diese Seite braucht. */
+@import url("basis.css");
+
+.tab { max-width: 960px; margin: 0 auto; }
+.zustand { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; padding: 0 12px; border-radius: var(--shape-sm); border: 1px solid var(--md-outline); font: 500 14px/20px var(--font); }
+.zustand::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--ok); }
+.zustand.pause::before { background: var(--pegel-leise); }
+.zustand.alarm { background: var(--md-error-container); color: var(--md-on-error-container); border-color: transparent; }
+.zustand.alarm::before { background: var(--md-error); }
+.zustand.fertig::before { background: var(--serie-1); }
+.zustand.aus::before { background: var(--md-outline); }
+
+.prozent { font: 500 64px/72px var(--font); letter-spacing: -.5px; margin-top: 12px; }
+.prozent small { font: 400 24px/32px var(--font); color: var(--md-on-surface-variant); margin-left: 4px; }
+.balken { height: 16px; background: var(--md-surface-container-highest); border-radius: var(--shape-full); overflow: hidden; }
+.balken > div { height: 100%; width: 0; background: var(--md-primary); border-radius: var(--shape-full); transition: width var(--dauer) linear; }
+.balken.pause > div { background: var(--pegel-leise); }
+.balken.fertig > div { background: var(--ok); }
+.balken.aus > div { background: var(--md-outline); }
+.zeiten { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+.zeiten > div { background: var(--md-surface-container-high); border-radius: var(--shape-md); padding: 12px 8px; text-align: center; }
+.zeiten span { display: block; color: var(--md-on-surface-variant); font: 500 12px/16px var(--font); letter-spacing: .5px; text-transform: uppercase; }
+.zeiten b { display: block; margin-top: 2px; font: 500 20px/28px var(--font-mono); }
+
+.steuer { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.steuer .btn { width: 100%; }
+.regler { margin-top: 24px; }
+.regler .kopfzeile { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.regler .wert { color: var(--md-on-surface-variant); font: 400 14px/20px var(--font-mono); }
+.regler input[type=range] { width: 100%; height: 40px; margin: 4px 0 0; accent-color: var(--md-primary); }
+.regler .segmente { margin-top: 4px; }
+.gesperrt { opacity: .38; pointer-events: none; }
+.zweispaltig { display: grid; gap: 0; }
+@media (min-width: 840px) { .zweispaltig { grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; } .zweispaltig .breit { grid-column: 1 / -1; } }
+.platzhalter { border: 2px dashed var(--md-outline-variant); border-radius: var(--shape-md); min-height: 160px; display: grid; place-items: center; text-align: center; padding: 16px; color: var(--md-on-surface-variant); }
+#vorschau { display: block; width: 100%; max-height: 70vh; object-fit: contain; border-radius: var(--shape-md); background: #fff; }
+.fuss { color: var(--md-on-surface-variant); text-align: center; margin-top: 16px; }
+.verbindung { display: inline-flex; align-items: center; gap: 8px; color: var(--md-on-surface-variant); font: 500 14px/20px var(--font); }
+.verbindung::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--ok); }
+.verbindung.aus::before { background: var(--md-outline); }
+.anmeldung { max-width: 420px; margin: 24px auto; }
+.anmeldung .logo { display: flex; justify-content: center; margin-bottom: 8px; }
+.anmeldung .logo img { width: 80px; height: 80px; border-radius: 18px; }
+dialog p { margin: 8px 0 0; color: var(--md-on-surface-variant); }
+.btn.gefahr { background: var(--md-error); color: var(--md-on-error); border-color: transparent; }
+.btn.ok { background: var(--ok); color: #fff; border-color: transparent; }

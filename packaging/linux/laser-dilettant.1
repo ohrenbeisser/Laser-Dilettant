@@ -1,0 +1,33 @@
+.TH LASER-DILETTANT 1 "November 2026" "Laser-Dilettant 0.1.0" "Laser-Dilettant"
+.SH NAME
+laser-dilettant \- Bilder für einen GRBL-Diodenlaser aufbereiten, als G-Code erzeugen und brennen
+.SH ÜBERSICHT
+.B laser-dilettant
+[\fIprojekt.ldproj\fR]
+.SH BESCHREIBUNG
+Laser-Dilettant lädt Bilder, bereitet sie auf (Schwellenwert, Dithering, Graustufen), erzeugt G-Code
+(Full, Cutting, Linie) und schickt ihn über USB an einen Diodenlaser mit GRBL. Dazu gibt es Vorschau und
+Simulation, Materialtest, Kalibrierung, Meldungen aufs Handy (ntfy) und eine Fernansicht im Heimnetz.
+.PP
+Wird eine Projektdatei (\fI.ldproj\fR) angegeben, öffnet das Programm sie beim Start.
+Das Handbuch steht im Programm (Taste F1) und unter \fI/usr/share/doc/laser-dilettant/MANUAL.md\fR.
+.SH SICHERHEIT
+Ein Laser kann Augen schädigen und Brände auslösen. Der Not-Aus der Software ersetzt keinen Hardware-Not-Aus.
+Den Laser nie unbeaufsichtigt laufen lassen.
+.SH USB-ZUGRIFF
+Der Benutzer muss in der Gruppe \fBdialout\fR sein, um den seriellen Anschluss (meist \fI/dev/ttyUSB0\fR) zu öffnen:
+.PP
+.RS
+sudo usermod \-aG dialout $USER
+.RE
+.SH DATEIEN
+.TP
+.I ~/.config/Laser-Dilettant/
+Einstellungen, Maschinenprofile und Materialien
+.TP
+.I ~/.local/share/Laser-Dilettant/logs/
+Auftrags- und Systemprotokoll (CSV)
+.SH SIEHE AUCH
+avrdude(1) (nur für das Firmware-Update)
+.SH LIZENZ
+GNU General Public License, Version 3. Dieses Programm kommt ohne jede Gewährleistung.

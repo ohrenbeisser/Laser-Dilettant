@@ -1,0 +1,35 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Laser-Dilettant
+Source: https://github.com/ohrenbeisser/Laser-Dilettant
+Comment: Das Paket enthält Bibliotheken von Qt 6.8 (Widgets, Svg, SerialPort, Network und weitere), dynamisch gelinkt, unter der
+ GNU Lesser General Public License, Version 3 (https://www.qt.io, Volltext: /usr/share/common-licenses/LGPL-3).
+
+Files: *
+Copyright: 2026 Ohrenbeisser
+License: GPL-3
+ Dieses Programm ist freie Software: Sie dürfen es unter den Bedingungen der GNU General Public License, Version 3,
+ weitergeben und ändern. Es kommt ohne jede Gewährleistung.
+ .
+ Der volle Text steht in /usr/share/common-licenses/GPL-3 (und in der Datei LICENSE des Quellcodes).
+
+Files: third_party/potrace/*
+Copyright: Peter Selinger
+License: GPL-2+
+ potrace 1.16, GNU General Public License, Version 2 oder später.
+ Der volle Text steht in /usr/share/common-licenses/GPL-2.
+
+Files: third_party/nanosvg/*
+Copyright: Mikko Mononen
+License: Zlib
+ nanosvg steht unter der zlib-Lizenz (https://github.com/memononen/nanosvg).
+
+Files: src/web/fonts/*.woff2
+Copyright: The Roboto Project Authors; The Roboto Mono Project Authors; The Montserrat Project Authors
+License: OFL-1.1
+ Die Schriften stehen unter der SIL Open Font License 1.1. Die Lizenztexte liegen bei den Schriften (src/web/fonts).
+
+Files: src/web/fonts/LICENSE-MaterialSymbols-Apache2.txt
+Copyright: Google LLC
+License: Apache-2.0
+ Die Symbole (Material Symbols) stehen unter der Apache-Lizenz 2.0.
+ Der volle Text steht in /usr/share/common-licenses/Apache-2.0.
