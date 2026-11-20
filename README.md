@@ -35,7 +35,7 @@ Entwickelt und getestet mit einem DIY8000-Desktop-Laser (Diode, GRBL 1.1z, USB-C
 
 ## Installation
 
-Fertige Pakete (deb, AppImage, Windows-Installer, Flatpak) baut GitHub Actions bei jeder Version und hängt sie an das [Release](https://github.com/ohrenbeisser/Laser-Dilettant/releases). Windows-Installer und Flatpak sind noch neu und nicht auf einem echten Rechner erprobt. Alternativ: aus dem Quellcode bauen.
+Fertige Pakete (deb, AppImage, Windows-Installer) baut GitHub Actions bei jeder Version und hängt sie an das [Release](https://github.com/ohrenbeisser/Laser-Dilettant/releases). Der Windows-Installer ist noch neu und nicht auf einem echten Rechner erprobt. Alternativ: aus dem Quellcode bauen.
 
 ### Bauen unter Linux
 
@@ -125,7 +125,7 @@ Das Aufspielen einer neuen Firmware kann den Laser unbenutzbar machen und ist oh
 
 ## Stand und Ausblick
 
-Version 0.1.1 (Beta). Das Programm ist am echten Laser getestet. Dazu gehören Firmware-Dialog, ntfy, Fernansicht, Hilfe im Programm und ein ausführliches Handbuch (`MANUAL.md`, mit Bildern). Pakete für Linux (deb, AppImage) lassen sich bauen; Flatpak und ein Windows-Installer fehlen noch. Auch die Ebenen (mehrere Arbeitsschritte in einem Auftrag) gibt es noch nicht. Die Oberfläche gibt es auf Deutsch und Englisch (Einstellungen → Sprache); Handbuch und README sind nur Deutsch.
+Version 0.1.1 (Beta). Das Programm ist am echten Laser getestet. Dazu gehören Firmware-Dialog, ntfy, Fernansicht, Hilfe im Programm und ein ausführliches Handbuch (`MANUAL.md`, mit Bildern). Pakete (deb, AppImage, Windows-Installer) entstehen über GitHub Actions; der Windows-Installer ist noch nicht erprobt. Auch die Ebenen (mehrere Arbeitsschritte in einem Auftrag) gibt es noch nicht. Die Oberfläche gibt es auf Deutsch und Englisch (Einstellungen → Sprache); Handbuch und README sind nur Deutsch.
 
 ## Lizenz
 

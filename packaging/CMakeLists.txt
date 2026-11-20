@@ -1,4 +1,4 @@
-# Installieren und Pakete bauen (CPack): Linux (deb, AppImage, Flatpak über denselben Installationsschritt) und Windows (NSIS).
+# Installieren und Pakete bauen (CPack): Linux (deb, AppImage über denselben Installationsschritt) und Windows (NSIS).
 #
 # Aufbau des deb-Pakets (Qt 6.8 kommt mit, weil die Systemversionen älter sind):
 #   /usr/bin/laser-dilettant                          Verweis auf das Programm
@@ -21,8 +21,8 @@ if(NOT UNIX OR APPLE)
     return()
 endif()
 
-# Qt mitliefern (deb, AppImage) oder nicht (Flatpak: Qt kommt dort aus der KDE-Laufzeit, das Programm liegt in /app/bin).
-option(LD_BUNDLE_QT "Qt-Bibliotheken ins Paket legen (AUS für Flatpak)" ON)
+# Qt mitliefern (deb, AppImage) oder nicht (dann liegt das Programm in bin/ und Qt kommt vom System).
+option(LD_BUNDLE_QT "Qt-Bibliotheken ins Paket legen" ON)
 
 set(LD_APP_DIR "${CMAKE_INSTALL_LIBDIR}/laser-dilettant")
 
